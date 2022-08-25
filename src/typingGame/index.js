@@ -37,8 +37,7 @@ function TypingGame() {
 
 
     setTimeout(()=>{
-        second == 0? (setSecond(60)) (setMin(min-1)) : setSecond(second-1);
-      
+        second == 0? (setSecond(60) && setMin(min-1)) : setSecond(second-1);
     },1000);
 
 
