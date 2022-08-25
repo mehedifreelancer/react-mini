@@ -1,0 +1,13 @@
+.card img{
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.loader{
+    height: 300px;
+    width: 100%;
+    background-position: center;
+    background-image: url('../../images/loder.gif');
+
+}
