@@ -1,0 +1,27 @@
+.page-link{
+    display: flex !important;
+    gap: 15px;
+    justify-content: center;
+}
+
+.page-link li a{
+    text-decoration: none;
+}
+
+
+.page-link li{
+    list-style: none;
+    border: 1px solid #0a58ca;
+    padding: 2px 8px;
+    color: white;
+    background-color: #0a58ca;
+    border-radius: 5px;
+
+}
+
+.previous a, .next a {
+    color: white !important;
+}
+.selected{
+    background-color: black !important;
+}
