@@ -11,55 +11,67 @@ import ViewModal from "../ViewModal";
 
 function Products() {
 
+  // States for handeling data 
   const [data, setData] = useState(products);
   const [modalData, setModalData] = useState(0);
+
+  // States for handeling  max and min price 
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(0);
+  const [isChanged, setIsChanged] = useState(false);
+
+  //States for handeling  pagination
+  const [currentproducts, setCurrentproducts] = useState(data);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const productsPerPage = 12;
+
+
+
+  //Fetcing page data inside useeffect   --------------------
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const endOffset = itemOffset + productsPerPage;
+    setCurrentproducts(data.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(data.length / productsPerPage));
+  }, [itemOffset, productsPerPage,data]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * productsPerPage) % data.length;
+    setItemOffset(newOffset);
+  };
+
+
+
+
+
+  //Fetching single data-------
   const singleProduct = (id) => {
-    //Fetching single data
     let singleData = data.find((item) => {
       return item.id == id;
     })
     setModalData(singleData);
   };
 
+  
+  // Filtering data 
+ 
 
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setmaxPrice] = useState(0);
+  const filter = () =>{
 
-  const filter = (e) =>{
     let filtered = data.filter((item) => {
-        return item.price > minPrice && item.price < maxPrice;
+        return item.price > minPrice && item.price < 5 ;
       });
       setData(filtered);
-    //   console.log(minPrice+'> <'+maxPrice);
-    //   console.log(data);
-    console.log("Working!");
+
+      console.log(minPrice+'> <'+maxPrice);
+      console.log(filtered);
+      
+
   }
 
-
-
-
-
-//   --------------------
-  // We start with an empty list of products.
-  const [currentproducts, setCurrentproducts] = useState(data);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  const productsPerPage = 12;
-
-  
-  useEffect(() => {
-    // Fetch products from another resources.
-    window.scrollTo(0, 0);
-    const endOffset = itemOffset + productsPerPage;
-    setCurrentproducts(data.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(data.length / productsPerPage));
-  }, [itemOffset, productsPerPage, data]);
-
-  // Invoke when user click to request another page.
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * productsPerPage) % data.length;
-    setItemOffset(newOffset);
-  };
+// console.log(maxPrice);
 
 
 
@@ -69,7 +81,7 @@ function Products() {
       <section style={{ marginTop: "120px" }} className="container">
         <div className="row">
           <div className="col-12 col-md-3">
-            <FilterCard setmaxPrice ={setmaxPrice} setMinPrice={setMinPrice}  />
+            <FilterCard filter={filter}  setMaxPrice ={setMaxPrice} setMinPrice={setMinPrice}  />
           </div>
 
           <div className="col-12 col-md-9">
