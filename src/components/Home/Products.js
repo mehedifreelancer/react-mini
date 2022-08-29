@@ -14,11 +14,19 @@ function Products() {
   // States for handeling data 
   const [data, setData] = useState(products);
   const [modalData, setModalData] = useState(0);
-
+  var arr = [];
   // States for handeling  max and min price 
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
-  const [isChanged, setIsChanged] = useState(false);
+  for (let index = 0; index < products.length; index++) {
+     let price  =+ products[index].price;
+     arr.push(parseInt(price));
+  }
+  
+  console.log(arr);
+  const getMaxData = Math.max(...arr);
+  const getMinData = Math.min(...arr);
+
+
+
 
   //States for handeling  pagination
   const [currentproducts, setCurrentproducts] = useState(data);
@@ -55,24 +63,6 @@ function Products() {
   };
 
   
-  // Filtering data 
- 
-
-  const filter = () =>{
-
-    let filtered = data.filter((item) => {
-        return item.price > minPrice && item.price < 5 ;
-      });
-      setData(filtered);
-
-      console.log(minPrice+'> <'+maxPrice);
-      console.log(filtered);
-      
-
-  }
-
-// console.log(maxPrice);
-
 
 
   return (
@@ -81,7 +71,7 @@ function Products() {
       <section style={{ marginTop: "120px" }} className="container">
         <div className="row">
           <div className="col-12 col-md-3">
-            <FilterCard filter={filter}  setMaxPrice ={setMaxPrice} setMinPrice={setMinPrice}  />
+            <FilterCard     />
           </div>
 
           <div className="col-12 col-md-9">
@@ -91,7 +81,6 @@ function Products() {
                   <Card isClicked={singleProduct} key={index}  data={item}/>
                 </div>
               ))}
-
 
 
             <ReactPaginate

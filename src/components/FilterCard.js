@@ -1,15 +1,5 @@
-function FilterCard({filter, setMaxPrice,setMinPrice}) {
+function FilterCard() {
 
-
-  let setMin = (a) =>{
-    setMinPrice(a);
-    filter();
-  }
-
-  let setMax = (a)=>{
-    setMaxPrice(a);
-    filter();
-  }
 
   return (
     <>
@@ -23,18 +13,18 @@ function FilterCard({filter, setMaxPrice,setMinPrice}) {
               <div className="form-row">
                 <div className="form-group col-12 col-xl-6">
                   <label>Min</label>
-                  <input onKeyUp={(e)=> setMin(e.target.value)}
+                  <input 
                     type="number"
-                    className="form-control"
+                    className="form-control min_"
                     id="inputEmail4"
                     placeholder="$0"
                   />
                 </div>
                 <div className="form-group col-12 col-xl-6 text-right">
                   <label>Max</label>
-                  <input onKeyUp={(e)=> setMax(e.target.value)}
+                  <input  
                     type="number"
-                    className="form-control"
+                    className="form-control "
                     placeholder="$1,0000"
                   />
                 </div>
